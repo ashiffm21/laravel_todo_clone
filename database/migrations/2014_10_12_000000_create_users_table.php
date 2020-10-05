@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+
+use function PHPUnit\Framework\throwException;
 
 class CreateUsersTable extends Migration
 {
@@ -13,15 +15,12 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-        });
+        if (file_exists(dirname(__FILE__) . "/../workbench/todo.sql")) {
+            $db = file_get_contents(dirname(__FILE__) . "/../workbench/todo.sql");
+            DB::unprepared($db);
+        } else {
+            throw new FileNotFoundException('Sql file is missing');
+        }
     }
 
     /**
@@ -31,6 +30,15 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        $rest_tables = (DB::select('SELECT table_name FROM information_schema.tables WHERE table_schema = \'' . DB::getDatabaseName() . '\''));
+
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
+        foreach ($rest_tables as $table) {
+            $name = (isset($table->TABLE_NAME) ? $table->TABLE_NAME : ((isset($table->table_name) ? $table->table_name : '')));
+            if ($name != 'migrations') {
+                DB::statement('DROP TABLE IF EXISTS `' . $name . '`;');
+            }
+        }
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
     }
 }
