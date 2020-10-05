@@ -20,3 +20,6 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('login', [UserController::class, 'authenticate']);
+
+Route::group(['middleware' => ['jwt.verify']], function () {
+});

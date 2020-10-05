@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "f70c04cb-6bac-4e51-b76a-8bd9c1f08f47",
+		"name": "TODO API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@gmail.com\",\n    \"password\": \"#Admin123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}api/login",
+					"host": [
+						"{{host}}api"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6d59f35d-15f0-4f0b-bc07-3b84260a4a06",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5eb9f4ee-dcb4-4163-b12a-bbfed628b973",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "34c32de3-02ee-4ab6-b938-6f9a24689e93",
+			"key": "host",
+			"value": "http://localhost/todo-api/public/"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
