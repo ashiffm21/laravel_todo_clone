@@ -16,9 +16,12 @@ class CreateUsersTable extends Migration
     public function up()
     {
         if (file_exists(dirname(__FILE__) . "/../workbench/todo.sql")) {
+            echo 'working';
             $db = file_get_contents(dirname(__FILE__) . "/../workbench/todo.sql");
+            print_r($db);
             DB::unprepared($db);
         } else {
+            echo 'Nooooooooo working';
             throw new FileNotFoundException('Sql file is missing');
         }
     }

@@ -3,9 +3,12 @@
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS
+, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS
+, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE
+, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
 -- Schema todo
@@ -14,39 +17,58 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Table `users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE
+IF NOT EXISTS `users`
+(
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) NULL,
-  `email` VARCHAR(60) NOT NULL,
-  `password` VARCHAR(255) NOT NULL,
+  `name` VARCHAR
+(100) NULL,
+  `email` VARCHAR
+(60) NOT NULL,
+  `password` VARCHAR
+(255) NOT NULL,
   `created_at` DATETIME NULL,
   `updated_at` DATETIME NULL,
   `deleted_at` INT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
+  PRIMARY KEY
+(`id`),
+  UNIQUE INDEX `email_UNIQUE`
+(`email` ASC) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `tasks`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tasks` (
+CREATE TABLE
+IF NOT EXISTS `tasks`
+(
   `id` INT NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(255) NULL,
+  `title` VARCHAR
+(255) NULL,
   `user_id` INT NOT NULL,
   `created_at` DATETIME NULL,
   `updated_at` DATETIME NULL,
   `completed_at` DATETIME NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_task_users_idx` (`user_id` ASC) VISIBLE,
+  PRIMARY KEY
+(`id`),
+  INDEX `fk_task_users_idx`
+(`user_id` ASC) ,
   CONSTRAINT `fk_task_users`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    FOREIGN KEY
+(`user_id`)
+    REFERENCES `users`
+(`id`)
+    ON
+DELETE NO ACTION
+    ON
+UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+SET SQL_MODE
+=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS
+=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS
+=@OLD_UNIQUE_CHECKS;
